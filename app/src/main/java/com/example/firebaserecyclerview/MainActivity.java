@@ -88,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
                         Long timestampLong = timetampSnapshot.getValue(Long.class);
                         String date=timeSnapshot.getValue(String.class);
 
+                        long mill=System.currentTimeMillis();
+                        long timeElapsedMillis = mill - timestampLong;
+                        String dateTime=TimeElapsedCalculator.formatTimeElapsed(timeElapsedMillis,timestampLong);
 // Assuming you have the number of milliseconds stored in a variable called 'milliseconds'
                       //  long milliseconds = System.currentTimeMillis();
 
@@ -99,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                         // Create a new User object using the retrieved data
-                       User user = new User(firstname, lastname, age,timestampLong,date);
+                       User user = new User(firstname, lastname, age,timestampLong,dateTime);
                        //Log.e("time",date);
                         users.add(user);
 
