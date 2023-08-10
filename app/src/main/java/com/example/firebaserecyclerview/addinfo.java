@@ -1,4 +1,5 @@
 package com.example.firebaserecyclerview;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -42,30 +44,25 @@ String uid = currentFirebaseUser.getUid();
 // Convert the milliseconds to date and time
                 String dateTime = DateTimeUtil.convertMillisecondsToDateTime(currentTimeMillis);
 
-                // User user = new User(name, email);
                 User user = new User(first_name.getText().toString(), last_name.getText().toString(), age.getText().toString(),currentTimeMillis,dateTime);
 
-                databaseReference.child(uid).push().setValue(user).addOnFailureListener(new OnFailureListener() {
+                databaseReference.child(uid).push().setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Intent homeIntent=new Intent(addinfo.this,MainActivity.class);
+                        startActivity(homeIntent);
+                        finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e("TAG", "Failed to add info", e);
-                        Toast.makeText(addinfo.this, "Failed to add info", Toast.LENGTH_SHORT).show();
+                        Log.e("TAG", "Failed to add data", e);
+                        Toast.makeText(addinfo.this, "Failed to add data", Toast.LENGTH_SHORT).show();
                     }
                 });
+
             }
         });
-
-
-
-    }
-
-    public void writeNewUser(String userId, String name, String email) {
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("users");
-       // User user = new User(name, email);
-      //  User user = new User("Johdsfsdn", "Dodfdsfe");
-
-        //databaseReference.push().setValue(user);
 
     }
 

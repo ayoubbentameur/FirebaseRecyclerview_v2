@@ -10,6 +10,7 @@ public class User {
     private long timestamp;
     private String time;
 
+
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
@@ -20,6 +21,7 @@ public class User {
         this.age = age;
         this.timestamp=timestamp;
         this.time=time;
+
     }
 
     @Override
@@ -71,4 +73,6 @@ public class User {
     public void setTime(String time) {
         this.time = time;
     }
+
+
 }

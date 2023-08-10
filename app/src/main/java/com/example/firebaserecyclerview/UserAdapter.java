@@ -55,6 +55,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             textdateView=itemView.findViewById(R.id.date_id);
         }
     }
+    public void updateData(List<User> newData) {
+        dataList.clear();
+        dataList.addAll(newData);
+    }
 }
 
 
